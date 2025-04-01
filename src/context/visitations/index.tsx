@@ -349,6 +349,11 @@ export const VisitationProvider: React.FC<IProps> = ({ children }) => {
 						.format("YYYY-MM-DD"),
 				};
 
+				// Check if the next day is before today
+				if (moment(nextDay.value).isBefore(moment())) {
+					nextDay.value = moment().add(1, "days").format("YYYY-MM-DD");
+				}
+
 				// Reschedule each pending visitation
 				for (const visit of pendingVisitations) {
 					saveItemsOnNextDay(nextDay, visit);
